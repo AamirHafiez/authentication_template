@@ -1,0 +1,32 @@
+<div id="sign-up-container">
+    <!-- heading -->
+    <div class="heading-container">
+        <h1>Sign Up</h1>
+    </div>
+
+    <!-- form -->
+    <div class="form-container">
+        <form action="/users/create" method="POST">
+            <!-- name field -->
+            <input type="text" name="name" placeholder="Your Name" required>
+            <!-- birthday field -->
+            <label for="birthday">Birthday:</label>
+            <input type="date" id="birthday" name="birthday">
+            <!-- gender field radio -->
+            <p>Gender:</p>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label>
+            <!-- email field -->
+            <input type="email" name="email" placeholder="Your Email" required>
+            <!-- password and verify password field -->
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <input type="password" name="verify_password" placeholder="Verify Password" required>
+            <!-- submit button -->
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
