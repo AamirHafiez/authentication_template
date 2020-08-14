@@ -2,6 +2,15 @@ const express = require('express');
 const port = 8080;
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
+const db = require('./config/mongoose');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+
+// for cookie parser
+app.use(cookieParser());
+
+// for form
+app.use(express.urlencoded());
 
 // setting up express Layouts
 app.use(expressLayouts);
