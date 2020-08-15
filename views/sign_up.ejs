@@ -1,19 +1,25 @@
-<div id="sign-up-container">
+<link rel="stylesheet" href="/css/sign_up.css">
+
+<div id="sign-up-container" class="mx-auto shadow p-3 mb-5 bg-white rounded col-8 col-lg-5">
     <!-- heading -->
-    <div class="heading-container">
+    <div class="heading-container text-success">
         <h1>Sign Up</h1>
+    </div>
+
+    <div>
+        <a href="/users/sign-in">Already have an account? Sign In!</a>
     </div>
 
     <!-- form -->
     <div class="form-container">
         <form action="/users/create" method="POST">
             <!-- name field -->
-            <input type="text" name="name" placeholder="Your Name" required>
+            <input class="w-75 mb-2 form-control" type="text" name="name" placeholder="Your Name" required>
             <!-- birthday field -->
-            <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" name="birthday" required>
+            <label style="font-size: larger;" for="birthday">Date of Birth:</label>
+            <input class="w-75 mb-2 form-control" type="date" id="birthday" name="birthday" required>
             <!-- gender field radio -->
-            <p>Gender:</p>
+            <span style="font-size: larger;">Gender: </span><br>
             <input type="radio" id="male" name="gender" value="male" required>
             <label for="male">Male</label><br>
             <input type="radio" id="female" name="gender" value="female" required>
@@ -21,12 +27,12 @@
             <input type="radio" id="other" name="gender" value="other" required>
             <label for="other">Other</label>
             <!-- email field -->
-            <input type="email" name="email" placeholder="Your Email" required>
+            <input class="w-75 mb-2 form-control" type="email" name="email" placeholder="Your Email" required>
             <!-- password and verify password field -->
-            <input type="password" name="password" placeholder="Enter Password" required>
-            <input type="password" name="verify_password" placeholder="Verify Password" required>
+            <input class="w-75 mb-2 form-control" type="password" name="password" placeholder="Enter Password" required>
+            <input class="w-75 mb-2 form-control" type="password" name="verify_password" placeholder="Verify Password" required>
             <!-- submit button -->
-            <button type="submit">Sign Up</button>
+            <button type="submit" class="w-75 btn btn-primary">Sign Up</button>
         </form>
     </div>
 </div>

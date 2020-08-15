@@ -1,0 +1,29 @@
+<div class="fixed-top">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <h5 class="text-white h4">Authentication Template</h5>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <% if(!locals.user){ %>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/users/sign-up">Sign Up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/users/sign-in">Sign In</a>
+            </li>
+            <% }else{ %>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/users/destroy-session">Logout</a>
+            </li>
+            <% } %>
+        </ul>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+</div>
