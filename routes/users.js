@@ -12,9 +12,11 @@ router.get('/sign-in', passport.notAuthenticated, usersController.signIn);
 router.post('/create', usersController.create);
 // url: localhost:8000/users/user-present
 router.get('/user-present', usersController.userPresent);
-// url: localhost:8000/users/create-session
+// url: localhost:8080/users/create-session
 router.post('/create-session', passport.authenticate('local', {
     failureRedirect: '/users/sign-in'
 }), usersController.createSession);
+// url: localhost:8080/users/destroy-session
+router.get('/destroy-session', passport.checkAuthentication, usersController.destroySession);
 
 module.exports = router;

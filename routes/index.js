@@ -6,7 +6,7 @@ const passport = require('passport');
 const homeController = require('../controllers/home_controller');
 
 console.log('WOW!! Router is loaded');
-
+``
 // url: localhost:8080/users
 router.use('/users', require('./users'));
 
