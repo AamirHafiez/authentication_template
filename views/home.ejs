@@ -1,1 +1,9 @@
 <h1>Home Page</h1>
+<% if(locals.user){ %>
+    <div id="signed-in-user-details">
+        <p><%= locals.user.name %></p>
+        <p><%= locals.user.email %></p>
+        <p><%= locals.user.gender %></p>
+        <p><%= locals.user.birthday %></p>
+    </div>
+<% } %>

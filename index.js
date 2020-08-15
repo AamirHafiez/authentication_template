@@ -5,6 +5,10 @@ const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo')(session);
 
 // for cookie parser
 app.use(cookieParser());
@@ -14,6 +18,25 @@ app.use(express.urlencoded());
 
 // setting up express Layouts
 app.use(expressLayouts);
+
+// used for session
+app.use(session({
+    name: 'auth_cookie',
+    secret: 'qwerty',
+    saveUninitialized: false,
+    resave: false,
+    cookie:{
+        maxAge: (1000 * 60 * 10)
+    },
+    store: new MongoStore({
+        mongooseConnection: db,
+        autoRemove: 'disabled'
+    }, function(err){
+        console.log(err || 'connect-mongodb is OK');
+    })
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //routing middleware
 app.use('/', require('./routes'));

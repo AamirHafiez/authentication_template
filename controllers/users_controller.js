@@ -25,6 +25,10 @@ module.exports.userPresent = function(req, res){
 
 // create user in database (SignUp)
 module.exports.create = function(req, res){
+    if(req.body.password != req.body.verify_password){
+        return res.redirect('back');
+    }
+
     User.findOne({email: req.body.email}, function(err, user){
         if(err){
             console.log('Error in finding user');
@@ -46,4 +50,9 @@ module.exports.create = function(req, res){
             });
         }
     });
+}
+
+// create session (Sign in)
+module.exports.createSession = function(req, res){
+    return res.redirect('/');
 }
