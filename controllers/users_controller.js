@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
+const randomstring = require('randomstring');
 
 // render sign up page
 module.exports.signUp = function(req, res){
@@ -89,6 +90,20 @@ module.exports.resetMail = function(req, res){
             //TODO: notification user not present
             return res.redirect('back');
         }else{
+            // generating a random alpha numeric string of length 12
+            let tempPass = randomstring.generate({
+                length: 12,
+                charset: 'alphanumeric'
+            });
+
+            bcrypt.hash(tempPass, 10, function(err, hash){
+                User.findByIdAndUpdate(user.id, {password: hash}, function(err, user){
+                    if(err){
+                        console.log('Error in finding user');
+                        return;
+                    }
+                });
+            });
             let transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -100,8 +115,8 @@ module.exports.resetMail = function(req, res){
             let mailOptions = {
                 from: 'youremail@gmail.com',
                 to: req.body.email,
-                subject: 'Password Reset Link',
-                text: 'Hey, Here is your reset link!! Do not share with anyone: http://localhost:8080/users/change-password/?id='+user.id
+                subject: 'Password Reset',
+                text: 'Hey, Here is your temporary Password!! Do not share with anyone: ' + tempPass
             };
                 
             transporter.sendMail(mailOptions, function(error, info){

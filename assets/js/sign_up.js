@@ -9,9 +9,9 @@ $(function(){
             return /\d/g.test(t);
         }
         if(str.length >= 8 && containsNumber(str)){
-            $('#password-notification').html('Your Password looks great!!').css('color', 'green');
+            $('#password-notification').html('<i class="fas fa-check-circle"></i> Your Password looks great!!').css('color', 'green');
         }else{
-            $('#password-notification').html('*The password should be 8 characters long and must contain a number').css('color', 'red');
+            $('#password-notification').html('<i class="fas fa-times-circle"></i> The password should be 8 characters long and must contain a number').css('color', 'red');
         }
     });
 
@@ -20,9 +20,9 @@ $(function(){
     $('#verify-password-input').on('keyup', function(){
         $('#verify-pass-notification').show();
         if($('#password-input').val() === $(this).val()){
-            $('#verify-pass-notification').html('Wow! It is a match').css('color', 'green');
+            $('#verify-pass-notification').html('<i class="fas fa-check-circle"></i> Wow! It is a match').css('color', 'green');
         }else{
-            $('#verify-pass-notification').html(`*Doesn't Match`).css('color', 'red');
+            $('#verify-pass-notification').html(`<i class="fas fa-times-circle"></i> Doesn't Match`).css('color', 'red');
         }
     });
 });

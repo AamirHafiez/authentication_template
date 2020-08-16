@@ -11,6 +11,7 @@ const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo')(session);
 const nodemailer = require('nodemailer');
 const sassMiddleware = require('node-sass-middleware');
+const randomstring = require('randomstring');
 
 // for sass
 app.use(sassMiddleware({
