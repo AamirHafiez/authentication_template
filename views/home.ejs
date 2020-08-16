@@ -2,6 +2,7 @@
 
 <main>
     <h1>Home Page</h1>
+    <!-- if signed in -->
     <% if(locals.user){ %>
         <div id="signed-in-user-details">
             <p><%= locals.user.name %></p>

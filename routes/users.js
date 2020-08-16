@@ -4,27 +4,25 @@ const passport = require('passport');
 
 const usersController = require('../controllers/users_controller');
 
-// url: localhost:8080/users/sign-up
+// render sign up
 router.get('/sign-up', passport.notAuthenticated, usersController.signUp);
-// url: localhost:8080/users/sign-in
+// render sign in
 router.get('/sign-in', passport.notAuthenticated, usersController.signIn);
-// url: localhost:8080/users/create
+// sign up functionality
 router.post('/create', usersController.create);
-// url: localhost:8080/users/user-present
-router.get('/user-present', usersController.userPresent);
-// url: localhost:8080/users/create-session
+// sign in functionality
 router.post('/create-session', passport.authenticate('local', {
     failureRedirect: '/users/sign-in'
 }), usersController.createSession);
-// url: localhost:8080/users/destroy-session
+// sign out functionality
 router.get('/destroy-session', passport.checkAuthentication, usersController.destroySession);
-// url: localhost:8080/users/forget
+// render forget page
 router.get('/forget', passport.notAuthenticated, usersController.forget);
-// url: localhost:8080/users/send-reset
+// send reset mail functionality
 router.post('/send-reset', passport.notAuthenticated, usersController.resetMail);
-// url: localhost:8080/users/change-password
+// render change password
 router.get('/change-password', passport.setAuthenticatedUser, passport.checkAuthentication,usersController.changePass);
-// url: localhost:8080/users/change-password/success
+// change password functionality
 router.post('/change-password/success', passport.checkAuthentication, usersController.changePassSucess);
 
 // google sign in and sign up

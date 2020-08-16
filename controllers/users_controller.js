@@ -54,17 +54,17 @@ module.exports.create = function(req, res){
         req.flash('error', 'Check: If password atleast of length 8 and has a number');
         return res.redirect('back');
     }
-
+    
     User.findOne({email: req.body.email}, function(err, user){
         if(err){
             req.flash('error', err);
             console.log('Error in finding user');
             return;
         }
-        if(user){
+        if(user){ //user present
             req.flash('error', 'Account already exists!!'); 
             return res.redirect('back');
-        }else{  
+        }else{  //user not present
             bcrypt.hash(req.body.password, 10, function(err, hash) {
                 req.body.password = hash;
                 User.create(req.body, function(err, user){
@@ -99,7 +99,7 @@ module.exports.resetMail = function(req, res){
             return;
         }
         if(!user){
-            //TODO: notification user not present
+            req.flash('error', 'No user found');
             return res.redirect('back');
         }else{
             // generating a random alpha numeric string of length 12
