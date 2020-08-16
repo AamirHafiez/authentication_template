@@ -34,26 +34,37 @@ module.exports.forget = function(req, res){
 //render change password page
 module.exports.changePass = function(req, res){
     res.render('change_password', {
-        title: 'Authentication | Change Password', 
-        link: req.query
+        title: 'Authentication | Change Password',
     });
 }
 
 // create user in database (SignUp)
 module.exports.create = function(req, res){
+    // to check password and verify password
     if(req.body.password != req.body.verify_password){
+        req.flash('error','Password and Verify Password do not Match');
+        return res.redirect('back');
+    }
+
+    // for checking password validation
+    function containsNumber(t){
+        return /\d/g.test(t);
+    }
+    if(req.body.password.length < 8 || !containsNumber(req.body.password)){
+        req.flash('error', 'Check: If password atleast of length 8 and has a number');
         return res.redirect('back');
     }
 
     User.findOne({email: req.body.email}, function(err, user){
         if(err){
+            req.flash('error', err);
             console.log('Error in finding user');
             return;
         }
         if(user){
-            //TODO: OOPS PAGE USER ALREADY PRESENT 
-            return res.redirect('/users/user-present');
-        }else{
+            req.flash('error', 'Account already exists!!'); 
+            return res.redirect('back');
+        }else{  
             bcrypt.hash(req.body.password, 10, function(err, hash) {
                 req.body.password = hash;
                 User.create(req.body, function(err, user){
@@ -61,6 +72,7 @@ module.exports.create = function(req, res){
                         console.log('Error in creating user');
                         return;
                     }
+                    req.flash('success','Account created Successfully!!');
                     return res.redirect('/users/sign-in');
                 });    
             });
@@ -133,17 +145,30 @@ module.exports.resetMail = function(req, res){
 
 // change password sucessfull
 module.exports.changePassSucess = function(req, res){
+    // to check password and verify password
     if(req.body.password != req.body.verify_password){
-        return res.redirect('/');
+        req.flash('error','Password and Verify Password do not Match');
+        return res.redirect('back');
     }
-    bcrypt.hash(req.body.password, 10, function(err, hash) {
-        User.findByIdAndUpdate(req.query.id, {password: hash}, function(err, user){
-            console.log(user.password);
+
+    // for checking password validation
+    function containsNumber(t){
+        return /\d/g.test(t);
+    }
+    if(req.body.password.length < 8 || !containsNumber(req.body.password)){
+        req.flash('error', 'Check: If password atleast of length 8 and has a number');
+        return res.redirect('back');
+    }
+
+    bcrypt.hash(req.body.password, 10, function(err, hash){
+        User.findByIdAndUpdate(req.user.id, {password: hash}, function(err, user){
             if(err){
-                console.log('error in finding and updating user new password');
-                return res.redirect('home');
+                console.log('Error in finding and updating user password');
+                return;
             }
-            return res.redirect('/users/sign-in');
+            req.flash('success', 'Password changed Successfully');
+            return res.redirect('back');
         });
     });
+    
 }

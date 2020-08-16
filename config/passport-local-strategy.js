@@ -4,15 +4,18 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
 passport.use(new LocalStrategy({
-        usernameField: 'email'
+        usernameField: 'email',
+        passReqToCallback: true
     },
-    function(email, password, done){
+    function(req, email, password, done){
         User.findOne({email: email}, function(err, user){
             if(err){
                 console.log('Error in finding user --> PASSPORT');
+                req.flash('error',err);
                 return done(err);
             }
             if(!user){
+                req.flash('error','Username or Password is incorrect');
                 console.log('Invalid Username');
                 return done(null, false);
             }
@@ -22,6 +25,7 @@ passport.use(new LocalStrategy({
                     return done(null, user);
                 } else {
                     // Passwords don't match
+                    req.flash('error','Username or Password is incorrect');
                     console.log('Invalid Password');
                     return done(null, false);
                 } 

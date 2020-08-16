@@ -23,8 +23,12 @@ router.get('/forget', passport.notAuthenticated, usersController.forget);
 // url: localhost:8080/users/send-reset
 router.post('/send-reset', passport.notAuthenticated, usersController.resetMail);
 // url: localhost:8080/users/change-password
-router.get('/change-password', passport.notAuthenticated, usersController.changePass);
+router.get('/change-password', passport.setAuthenticatedUser, passport.checkAuthentication,usersController.changePass);
 // url: localhost:8080/users/change-password/success
-router.post('/change-password/success', passport.notAuthenticated, usersController.changePassSucess);
+router.post('/change-password/success', passport.checkAuthentication, usersController.changePassSucess);
+
+// google sign in and sign up
+router.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+router.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/users/sign-in'} ), usersController.createSession);
 
 module.exports = router;

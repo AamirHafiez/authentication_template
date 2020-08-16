@@ -15,11 +15,11 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        required: true
+        required: false
     },
     birthday: {
         type: Date,
-        required: true
+        required: false
     }
 }, {
     timestamps: true

@@ -12,6 +12,9 @@ const MongoStore = require('connect-mongo')(session);
 const nodemailer = require('nodemailer');
 const sassMiddleware = require('node-sass-middleware');
 const randomstring = require('randomstring');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
 
 // for sass
 app.use(sassMiddleware({
@@ -54,6 +57,10 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+//flash notifications
+app.use(flash());
+app.use(customMware.setFlash);
 
 //routing middleware
 app.use('/', require('./routes'));

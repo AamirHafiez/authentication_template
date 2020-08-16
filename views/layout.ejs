@@ -2,14 +2,48 @@
     <head>
         <title><%= title %></title>
 
-        <!--BootStrap: CSS only -->
+        <!--Bootstrap CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <%- style %>
+        <!-- Noty CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <!-- Noty SCRIPT  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+        <%- style%>
     </head>
     <body>
 
         <%- include('_navbar.ejs'); %>
 
+       
+       
+        <% if(flash.success && flash.success.length>0){%>
+            <script>
+                new Noty({
+                    
+                    theme: 'sunset',
+                    text: '<%= flash.success%>',
+                    type:'success',
+                    layout: 'topCenter',
+                    timeout:3500
+
+                }).show();
+
+            </script>
+        <%}%>
+
+        <% if(flash.error && flash.error.length>0){%>
+            <script>
+                new Noty({
+                    theme: 'sunset',
+                    text: '<%= flash.error%>',
+                    type:'error',
+                    layout: 'topCenter',
+                    timeout:3500
+
+                }).show();
+
+            </script>
+        <%}%>
         <%- body %>
 
         
@@ -24,7 +58,12 @@
         <!-- font awesome cdn -->
         <script src="https://kit.fontawesome.com/c90807128e.js" crossorigin="anonymous"></script>
 
+        
+
         <%- script %>
 
     </body>
 </html>
+
+
+
