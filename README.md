@@ -2,11 +2,13 @@
 A Website Authentication template useful for the authentication and session creation for every website, built using Html(EJS Template), CSS, Javascript, JQuery, Node JS, Express JS, Passport JS, Express JS layouts, MongoDb, Connect-Mongo, passport-local, Cookie parser, Express Session, Bcrypt, mongoose,flash messages, random string,  Noty and Scss while keeping the integrity of MVC scalable file structure. 
 
 # To run the code simply run this on command line:
-npm start
+npm start or node index.js
 
 # Install all dependencies using commands for npm:
 ## Install express:
 npm install express
+## Install nodemon:
+npm install nodemon
 ## Install express-ejs-layouts:
 npm install express-ejs-layouts
 ## Install mongoose:
